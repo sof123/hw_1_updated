@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="author" content="Simi Fagbemi">
+</head>
+<body>
+
+<script>
+var query = window.location.search.substring(1);
+var parsedQuery = parseQuery(query);
+var table = document.createElement('table');
+
+var tableHtml = '';
+
+
+for (var key in parsedQuery)
+{
+	tableHtml+= ('<tr><td>' + key + '</td><td>' + parsedQuery[key] + '</td> </tr>');
+}
+
+table.innerHTML = tableHtml;
+document.body.appendChild(table);
+
+function parseQuery(query)
+{
+	var pairs = query.split('&');
+	var obj = {};
+	pairs.forEach(function (pair) 
+	{
+		var keyValue = pair.split('=');
+		var key = keyValue[0];
+		var value = decodeURIComponent(keyValue[1]);
+		if (key === 'timeStamp')
+		{
+			value = new Date(parseInt(value));
+		}	
+		obj[key] = value;
+	});
+	return obj;
+}
+
+</script>
+</body>
+
+
+</html>
